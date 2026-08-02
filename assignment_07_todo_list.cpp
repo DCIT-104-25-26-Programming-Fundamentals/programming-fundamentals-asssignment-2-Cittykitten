@@ -80,11 +80,6 @@
 #include <string>
 using namespace std;
 
-#include <iostream>
-#include <vector>
-#include <string>
-using namespace std;
-
 // function to display menu options
 void displayMenu()
 {
