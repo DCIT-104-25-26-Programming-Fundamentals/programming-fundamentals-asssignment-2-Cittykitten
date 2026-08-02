@@ -83,3 +83,106 @@
 #include <iomanip>
 using namespace std;
 
+// function to display menu options
+void displayMenu()
+{
+    cout << "\n============================" << endl;
+    cout << "        TO-DO LIST MENU" << endl;
+    cout << "============================" << endl;
+    cout << "1. Add task" << endl;
+    cout << "2. View tasks" << endl;
+    cout << "3. Delete task" << endl;
+    cout << "4. Quit" << endl;
+    cout << "Enter your choice (1-4): ";
+}
+
+// 1. function to add a new task
+void addTask(vector<string> &taskList)
+{
+    string taskName;
+    cout << "Enter task: ";
+    cin.ignore(); // clear newline buffer before reading string line
+    getline(cin, taskName);
+
+    taskList.push_back(taskName);
+    cout << "Task added: \"" << taskName << "\"" << endl;
+}
+
+// 2. function to display all existing tasks
+void viewTasks(const vector<string> &taskList)
+{
+    if (taskList.empty())
+    {
+        cout << "Your task list is empty!" << endl;
+        return;
+    }
+
+    cout << "\nYour Tasks:" << endl;
+    for (int i = 0; i < taskList.size(); i++)
+    {
+        cout << i + 1 << ". " << taskList[i] << endl;
+    }
+}
+
+// 3. function to delete task by list index number
+void deleteTask(vector<string> &taskList)
+{
+    if (taskList.empty())
+    {
+        cout << "No tasks to delete!" << endl;
+        return;
+    }
+
+    viewTasks(taskList);
+
+    int taskNum;
+    cout << "Enter task number to delete: ";
+    cin >> taskNum;
+
+    // check if valid index number
+    if (taskNum < 1 || taskNum > taskList.size())
+    {
+        cout << "Error: Invalid task number!" << endl;
+    }
+    else
+    {
+        string removedTask = taskList[taskNum - 1];
+        taskList.erase(taskList.begin() + (taskNum - 1));
+        cout << "Task \"" << removedTask << "\" has been removed." << endl;
+    }
+}
+
+int main()
+{
+    vector<string> tasks;
+    int choice = 0;
+
+    while (choice != 4)
+    {
+        displayMenu();
+        cin >> choice;
+
+        if (choice == 1)
+        {
+            addTask(tasks);
+        }
+        else if (choice == 2)
+        {
+            viewTasks(tasks);
+        }
+        else if (choice == 3)
+        {
+            deleteTask(tasks);
+        }
+        else if (choice == 4)
+        {
+            cout << "Goodbye!" << endl;
+        }
+        else
+        {
+            cout << "Invalid choice! Please enter a number between 1 and 4." << endl;
+        }
+    }
+
+    return 0;
+}
